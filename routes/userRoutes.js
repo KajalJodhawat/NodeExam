@@ -1,10 +1,18 @@
-var express = require("express");
+const express = require("express");
+const bcrypt = require("bycrypt");
 const userModel = require("../models/userModel");
+var jwt = require('jsonwebtoken');
 
 let router = express.Router();
 
-router.post("/adduser", (req, res) => {
-  console.log("/adduser : ", req.body);
+router.post("/adduser", async (req, res) => {
+  // console.log("/adduser : ", req.body);
+  const useer = req.body;
+  const isemailExists=await userModel.findOne({email:user.email})
+  const isNumberExists=await userModel.findOne({Number:user.Number})
+  if(isemailExists || isNumberExists){
+    return res.status(201).json({data: "ALready exist"});
+  }
 
   var user = req.body;
 
